@@ -1,0 +1,9 @@
+var a = 10;
+var b = 20;
+var c = a + b; // 30
+var d = Math.abs(a - b); // 10
+a = c - d;
+b = c - a;
+
+console.log(a);
+console.log(b);
