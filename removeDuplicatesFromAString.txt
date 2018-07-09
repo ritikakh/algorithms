@@ -1,0 +1,10 @@
+//remove duplicate characters from a string
+
+var name = "Ritika";
+var nameArr = name.split("");
+
+var removed = nameArr.filter((currElem, pos) => {
+	return nameArr.indexOf(currElem) === pos;
+});
+
+console.log(removed);
