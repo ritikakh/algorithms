@@ -1,0 +1,15 @@
+var arr = [1,1,2,2,3,3,4,5,5,6,6,7,7,8,8];
+
+var newArr = arr.filter((currVal, pos) => {
+	if(arr[pos + 1] === arr[pos]) {
+  	return arr;
+  }
+});
+
+console.log(newArr);
+
+for(let j = 0; j < newArr.length ; j++) {
+	if(newArr[j] - newArr[j-1] > 1) {
+  	console.log(newArr[j]-1);
+  }
+}

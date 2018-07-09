@@ -1,0 +1,10 @@
+var arr = [1,2,3,1,4,5];
+var arr2 = [3,1,4,5,1,2,8];
+
+var arrS = arr.toString();
+
+var newArr2 = []; // 3,1,4,5,1,2,3,1,4,5,1,2
+newArr2 = arr2.concat(arr2);
+var newArr2S = newArr2.toString();
+
+console.log(newArr2S.includes(arrS));
