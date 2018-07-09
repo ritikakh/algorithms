@@ -1,0 +1,15 @@
+//find last non repeating characters in a string
+
+var arr = [1,2,3,2,3,4,5,6,8,5,6,8];
+var arrS = arr.toString();
+
+function firstNonRepeat(arr) {
+	for(var i = arr.length - 1; i >= 0; i--) {
+		if(arr.indexOf(arr[i]) === arr.lastIndexOf(arr[i])) {
+    	console.log(arr[i]);
+      break;
+    }
+  }
+}
+
+firstNonRepeat(arr);
