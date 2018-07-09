@@ -1,0 +1,17 @@
+// find pair that is equal to sum from array
+
+var arr = [3,4,5,2,6];
+var n = 8;
+
+function check(arr, n) {
+	for(var i = 0; i < arr.length; i++) {
+  	for(var j = 1; j < arr.length; j++) {
+    	if(arr[i] + arr[j] === n) {
+      	console.log(arr[i], arr[j]);
+        return;
+      }
+    }
+  }
+}
+
+check(arr, n);

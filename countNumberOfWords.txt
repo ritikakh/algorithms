@@ -1,0 +1,5 @@
+// count words in a string
+
+var str = "Ritika Khurana is married to mukund goel";
+var strSplit = str.split(" ");
+console.log(strSplit.length);
