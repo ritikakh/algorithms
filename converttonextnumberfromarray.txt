@@ -1,0 +1,7 @@
+var arr = [9,9,9];
+
+var arrS = (parseInt(arr.join(""))+1).toString().split(""); //.toString();
+
+var mapped = arrS.map((currVal) => parseInt(currVal));
+  
+console.log(mapped);
