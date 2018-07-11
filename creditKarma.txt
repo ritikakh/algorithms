@@ -1,0 +1,167 @@
+/*
+
+Offers
+
+Instructions
+
+A significant part of Credit Karma's platform is identifying well-matched financial offerings for our users based on many factors including a user's current financial profile. For this test you'll be asked to develop a rudimentary system that does exactly that.
+
+The goal of the system is to serve offers to users. You'll develop this in a stepwise manner. Whenever you're asked to serve an offer to the user, your implementation should return an array of offers. You are only serving offers to 1 user at a time.
+
+
+API Data
+
+
+-- Auto Loan offers
+
+[ {"auto-loan": { "id": 1, "provider": "CapitalOne", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 700, "maximumAmount": 10000 }}
+
+, {"auto-loan": { "id": 2, "provider": "Blue Harbor", "term": 24, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 5000 }}, {"auto-loan": { "id": 3, "provider": "Blue Harbor", "term": 36, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 3500 }}, {"auto-loan": { "id": 4, "provider": "USAA", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 900, "maximumAmount": 10000 }}, {"auto-loan": { "id": 5, "provider": "USAA", "term": 48, "minimumCreditScore": 100, "maximumCreditScore": 400, "maximumAmount": 3000 }} ]
+
+-- Credit card offers
+
+[ {"credit-card": { "id":1, "provider":"CapitalOne", "minimumCreditScore":300, "maximumCreditScore":700 }}, {"credit-card": { "id":2, "provider":"CapitalOne", "minimumCreditScore":600, "maximumCreditScore":700 }}, {"credit-card": { "id":3, "provider":"Chase", "minimumCreditScore":300, "maximumCreditScore":900 }} ]
+
+-- Personal loan offers
+
+[ {"personal-loan": { "id": 1, "provider": "Avant", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 700, "maximumAmount": 10000 }}, {"personal-loan": { "id": 2, "provider": "Prosper", "term": 24, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 5000 }}, {"personal-loan": { "id": 3, "provider": "Lending Club", "term": 36, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 3500 }}, {"personal-loan": { "id": 4, "provider": "Prosper", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 900, "maximumAmount": 10000 }} ]
+
+-- User
+
+{ "id": 356, "name": "Sajeev", "creditScore": 590, "autoLoan": { "balance": 7900, "termRemaining": 16 } }
+
+
+Step 1
+
+Write a set of classes that would be able to return all of the offers from each service.
+
+Step 2
+
+Only return offers from each service where the user's credit score is between (inclusive) the offers minimum and maximum score.
+
+Step 3
+
+Serve all relevant offers from step 2 and only the auto loan offers to the user if the following conditions are true:
+
+1. The user's credit score is within the offer's range
+2. The user's current outstanding loan is less than or equal to the auto loan offer's high limit (maximumAmount).
+
+*/
+
+var _ = require("lodash");
+
+var autoLoans = [ {"auto-loan": { "id": 1, "provider": "CapitalOne", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 700, "maximumAmount": 10000 }}, {"auto-loan": { "id": 2, "provider": "Blue Harbor", "term": 24, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 5000 }}, {"auto-loan": { "id": 3, "provider": "Blue Harbor", "term": 36, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 3500 }}, {"auto-loan": { "id": 4, "provider": "USAA", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 900, "maximumAmount": 10000 }}, {"auto-loan": { "id": 5, "provider": "USAA", "term": 48, "minimumCreditScore": 100, "maximumCreditScore": 400, "maximumAmount": 3000 }} ];
+
+var creditCardDatas = [ {"credit-card": { "id":1, "provider":"CapitalOne", "minimumCreditScore":300, "maximumCreditScore":700 }}, {"credit-card": { "id":2, "provider":"CapitalOne", "minimumCreditScore":600, "maximumCreditScore":700 }}, {"credit-card": { "id":3, "provider":"Chase", "minimumCreditScore":300, "maximumCreditScore":900 }} ];
+
+var personalLoanDatas = [ {"personal-loan": { "id": 1, "provider": "Avant", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 700, "maximumAmount": 10000 }}, {"personal-loan": { "id": 2, "provider": "Prosper", "term": 24, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 5000 }}, {"personal-loan": { "id": 3, "provider": "Lending Club", "term": 36, "minimumCreditScore": 600, "maximumCreditScore": 700, "maximumAmount": 3500 }}, {"personal-loan": { "id": 4, "provider": "Prosper", "term": 36, "minimumCreditScore": 300, "maximumCreditScore": 900, "maximumAmount": 10000 }} ];
+
+
+class AutoLoan {
+  constructor(provider, term, minimumCreditScore, maximumCreditScore, maximumAmount){
+    this.provider = provider;
+    this.term = term;
+    this.minimumCreditScore = minimumCreditScore;
+    this.maximumCreditScore = maximumCreditScore;
+    this.maximumAmount = maximumAmount;
+  }
+}
+
+class CreditCardOffers {
+  constructor(id, provider, minimumCreditScore, maximumCreditScore) {
+    this.id = id;
+    this.provider = provider;
+    this.minimumCreditScore = minimumCreditScore;
+    this.maximumCreditScore = maximumCreditScore;
+  }
+}
+
+class PersonalLoanOffers {
+  constructor(id, provider, term, minimumCreditScore, maximumCreditScore, maximumAmount) {
+    this.id = id;
+    this.provider = provider;
+    this.term = term;
+    this.minimumCreditScore = minimumCreditScore;
+    this.maximumCreditScore = maximumCreditScore;
+    this.maximumAmount = maximumAmount;
+  }
+}
+
+class User {
+  constructor(name, creditScore, autoLoan) {
+    this.name = name;
+    this.creditScore = creditScore;
+    this.autoLoan = autoLoan;
+  }
+}
+
+var autoLoanClasses = autoLoans.reduce((acc, autoLoan) => {
+  var autoLoanData = autoLoan["auto-loan"];
+  const { id, provider, term, minimumCreditScore, maximumCreditScore, maximumAmount } = autoLoanData; 
+  const autoLoanClass = new AutoLoan(provider, term, minimumCreditScore, maximumCreditScore, maximumAmount);
+  acc.push(autoLoanClass);
+  return acc;
+}, []);
+
+var creditCardClasses = creditCardDatas.reduce((acc, creditCard) => {
+  var creditCardData = creditCard["credit-card"];
+  const { id, provider, minimumCreditScore, maximumCreditScore } = creditCardData; 
+  const creditCardClass = new CreditCardOffers(id, provider, minimumCreditScore, maximumCreditScore);
+  acc.push(creditCardClass);
+  return acc;
+}, []);
+
+
+var personalLoanClasses = personalLoanDatas.reduce((acc, personalLoan) => {
+  var personalLoanData = personalLoan["personal-loan"];
+  const { id, provider, term, minimumCreditScore, maximumCreditScore, maximumAmount } = personalLoanData; 
+  const personalLoanClass = new PersonalLoanOffers(id, provider, term, minimumCreditScore, maximumCreditScore, maximumAmount);
+  acc.push(personalLoanClass);
+  return acc;
+}, []);
+
+//console.log(autoLoanClasses);
+
+/*
+
+Only return offers from each service where the user's credit score is between (inclusive) the offers minimum and maximum score.
+
+*/
+
+var user = { "id": 356, "name": "Sajeev", "creditScore": 590, "autoLoan": { "balance": 7900, "termRemaining": 16 } };
+
+const filterFunc = (input) => {
+  const {minimumCreditScore, maximumCreditScore} = input;
+  return (minimumCreditScore <= user.creditScore && maximumCreditScore >= user.creditScore); 
+}
+
+/*
+var filteredAutoLoans = autoLoanClasses.filter(filterFunc);
+
+var filteredCreditCards = creditCardClasses.filter(filterFunc);
+
+var filteredPersonalLoans = personalLoanClasses.filter(filterFunc);
+*/
+
+var outputStep2 = [autoLoanClasses, creditCardClasses, personalLoanClasses].map((data) => data.filter(filterFunc));
+
+//console.log(outputStep2);
+
+
+/*
+Step 3
+
+Serve all relevant offers from step 2 and only the auto loan offers to the user if the following conditions are true:
+
+1. The user's credit score is within the offer's range
+2. The user's current outstanding loan is less than or equal to the auto loan offer's high limit (maximumAmount).
+
+*/
+
+const userEligibleAutoLoans = autoLoanClasses.filter(filterFunc);
+
+const { autoLoan: { balance } } = user;
+
+const userLoansStep3 = userEligibleAutoLoans.filter(({ maximumAmount }) => balance <= maximumAmount);
+
+console.log(userLoansStep3);
