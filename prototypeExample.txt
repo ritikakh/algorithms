@@ -1,0 +1,19 @@
+function Person(firstName, lastName) {
+	this.firstName = firstName;
+  this.lastName = lastName;
+  /* this.getFullName = function getFullName() {
+    console.log(" here is the getFullName function");
+  } */
+  console.log(firstName + ' ' + lastName);
+}
+
+Person.prototype.getFullName = function() {
+	console.log("this is the prototypal function on the Person");
+}
+
+var ritika = new Person('ritika', 'khurana');
+console.log(ritika);
+var mukund = new Person('mukund', 'goel');
+console.log(mukund);
+
+console.log(ritika.getFullName());
