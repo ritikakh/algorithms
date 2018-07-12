@@ -1,0 +1,17 @@
+closure best example: 
+
+function factory(language) {
+	return function(firstName, lastName) {
+  	if(language == 'en') {
+    	console.log("Hello" + ' ' + firstName + ' ' + lastName);
+    }
+    if(language == "es") {
+    	console.log('Hola' + ' ' + firstName + ' ' + lastName);
+    }
+  }
+}
+
+var greeting = factory('es');
+
+//var greeting = factory('en');
+greeting('Ritika', 'Khurana');
