@@ -1,0 +1,15 @@
+// check balance of parens
+
+function balancedParens(string) {
+	return !string.split("").reduce(function(acc, char) {
+  	if(char === "{" || char === "[" || char === "(") {
+    	return ++acc;
+    }
+    if(char === "}" || char === "]" || char === ")") {
+    	return --acc;
+    }
+    return acc;
+  }, 0);
+}
+
+console.log(balancedParens("{{{{}}}}}}}"));
