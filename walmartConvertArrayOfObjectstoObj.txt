@@ -1,0 +1,7 @@
+let Arr = [{cats:10},{dogs:20}];
+
+var newObj = Arr.reduce((acc, currVal) => {
+	return acc = _.merge(acc, currVal);
+}, {});
+
+console.log(newObj);
