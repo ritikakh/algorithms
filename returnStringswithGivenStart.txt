@@ -1,0 +1,14 @@
+var strStart = 'ba';
+var strArray = ['banana', 'bad', 'bathroom', 'brave'];
+
+function checkStart(strStart, strArray) {
+	let resultArr = [];
+	strArray.map((currVal) => {
+  	if(currVal.includes(strStart)) {
+    	return resultArr.push(currVal);
+    }
+  })
+  return resultArr;
+}
+
+console.log(checkStart(strStart, strArray));
