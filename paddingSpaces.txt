@@ -1,0 +1,28 @@
+var input = "ritika khurana mukund goel"; //ritika1234khurana1234mukund123goel
+var length = 2;
+
+function padSpaces(length, input) {
+
+	if (input.length >= length) {
+  	return input;
+  }
+
+	const words = input.split(" ");
+  const spaces = words.length - 1; // 3
+  const extraSpaces = length - input.length; //37 - 26 = 11
+  const divisor = Math.floor(extraSpaces / spaces); // 11 / 3 => 3
+  let remainder = extraSpaces % spaces; // 11 % 3 => 2
+  
+  return words.map((word, index, words) => {
+  	if (words.length -1 === index) {
+    	return word;
+    } else if (remainder > 0) {
+      remainder--;
+  		return word.padEnd(word.length + divisor + 1);
+    } else {
+    	return word.padEnd(word.length + divisor);
+    }
+  }).join("");
+}
+
+console.log(padSpaces(length, input));
