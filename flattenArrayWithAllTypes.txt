@@ -1,0 +1,16 @@
+var arr = [1,2,{"a": 4, "b": "ritika"}, [234, 567], "mukund", 5,8, [3,4, {'1a': 21, '2b': 34}], [45,67,[12, "ritika", ["44583 japala pl", "fremont", "94539"], [213,713,4315]]]];
+var output = [];
+
+function flatten(arr) {
+  for(let i = 0; i < arr.length ; i++) {
+    if(arr[i].constructor.toString().indexOf("Array") > -1) {
+      flatten(arr[i]);
+    }
+    else {
+    	output.push(arr[i]);
+    }
+  }
+  return output;
+}
+
+console.log(flatten(arr));
