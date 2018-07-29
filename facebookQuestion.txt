@@ -1,0 +1,25 @@
+// could be potentially more than 3 keys in the object above
+var items = [
+  {color: 'red', type: 'tv', age: 18},
+  {color: 'silver', type: 'phone', age: 20}
+];
+
+var excludes = {
+  'color' : ['silver','yellow'],
+  'type' : ['tv']
+  'age': 10
+};
+
+function excludeItems(items, excludes) {
+   items = items.filter(item => {
+     for (let obj in item) {
+        if (excludes[obj] && excludes[obj].contructor.toString().indexOf("Array") > -1
+            && excludes[obj].includes(item[obj])) {
+            return false
+        }
+     }
+     return true;
+   })
+}
+
+console.log(excludeItems(items, excludes));
