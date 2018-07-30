@@ -1,0 +1,15 @@
+// get min and max from array using reduce
+
+var arr = [0,1,5,7,3,4,2,9];
+
+var result = arr.reduce((acc, currVal) => {
+	if(acc.min === undefined || currVal < acc.min) {
+  	acc.min = currVal;
+  }
+  if(acc.max === undefined || currVal > acc.max) {
+  	acc.max = currVal;
+  }
+  return acc;
+}, {min : undefined, max : undefined})
+
+console.log(result);
